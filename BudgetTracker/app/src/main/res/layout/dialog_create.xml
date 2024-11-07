@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="30dp"
+    >
+    <EditText
+        android:id="@+id/etLabel"
+        android:hint="Label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <EditText
+            android:id="@+id/etAmount"
+            android:hint="Amount"
+            android:inputType="numberDecimal"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            />
+        <Spinner
+            android:id="@+id/spCurrency"
+            android:layout_weight="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:hint="Date"
+        android:clickable="true"/>
+    <EditText
+        android:id="@+id/etNote"
+        android:hint="Note"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:scrollbars="vertical"
+        android:gravity="top|start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RadioGroup
+        android:id="@+id/rgIncoming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Incoming Radio Button -->
+        <RadioButton
+            android:id="@+id/rbIncoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="Incoming" />
+
+        <!-- Outgoing Radio Button -->
+        <RadioButton
+            android:id="@+id/rbOutgoing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="Outgoing"
+            android:checked="true"/>
+
+    </RadioGroup>
+
+
+
+</LinearLayout>

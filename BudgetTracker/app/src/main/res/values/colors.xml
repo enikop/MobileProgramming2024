@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryDarkColour">#FF5EB684</color>
+    <color name="primaryColour">#FF227769</color>
+    <color name="primaryColourVariant">#FF023D54</color>
+    <color name="secondaryColour">#FFFFFF66</color>
+    <color name="secondaryColourVariant">#FF02968A</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="incomingColour">#FF94DEA5</color>
+    <color name="outgoingColour">#FFFFFFCC</color>
+    <color name="warnColour">#FFB85C5C</color>
+
+</resources>
