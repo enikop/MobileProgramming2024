@@ -4,15 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.example.budgettracker.adapter.BudgetTrackerAdapter
 import com.example.budgettracker.database.AppDatabase
 import com.example.budgettracker.dialog.TransactionDialog
-import com.example.budgettracker.fragments.MainFragment
-import com.example.budgettracker.fragments.StatFragment
 import com.example.budgettracker.model.Transaction
 import com.example.budgettracker.touch.TransactionTouchHelperCallback
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,16 +17,6 @@ class MainActivity : AppCompatActivity(), TransactionDialog.TransactionHandler {
     companion object {
         val KEY_FIRST = "KEY_FIRST"
         val KEY_ITEM_TO_EDIT = "KEY_ITEM_TO_EDIT"
-    }
-    private inner class ScreenSlidePagerAdapter(activity: AppCompatActivity, adapter:BudgetTrackerAdapter) :
-        FragmentStateAdapter(activity) {
-        override fun getItemCount(): Int = 2 // Two fragments
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> MainFragment(adapter) // Your original MainFragment
-                else -> StatFragment() // A second empty fragment
-            }
-        }
     }
 
     private lateinit var adapter: BudgetTrackerAdapter
@@ -46,14 +31,14 @@ class MainActivity : AppCompatActivity(), TransactionDialog.TransactionHandler {
         fab.setOnClickListener { view ->
             TransactionDialog().show(supportFragmentManager, "TAG_ITEM")
         }
-        initRecyclerView()
 
+        initRecyclerView()
         /*Új elem felvitelének vizsgálata, akkor hívódik meg, a dialógus címét állítja*/
         if (isFirstRun()) {
             MaterialTapTargetPrompt.Builder(this@MainActivity)
                 .setTarget(findViewById<View>(R.id.fab))
-                .setPrimaryText("New transaction")
-                .setSecondaryText("Tap here to create a new transaction")
+                .setPrimaryText("New Shopping Item")
+                .setSecondaryText("Tap here to create new shopping item")
                 .show()
         }
 
@@ -81,14 +66,11 @@ class MainActivity : AppCompatActivity(), TransactionDialog.TransactionHandler {
 
             runOnUiThread{
                 adapter = BudgetTrackerAdapter(this, items)
-                val viewPager: ViewPager2 = viewPager
-                val pagerAdapter = ScreenSlidePagerAdapter(this, adapter)
-                viewPager.adapter = pagerAdapter
-                /*recyclerShopping.adapter = adapter
+                recyclerShopping.adapter = adapter
 
                 val callback = TransactionTouchHelperCallback(adapter)
                 val touchHelper = ItemTouchHelper(callback)
-                touchHelper.attachToRecyclerView(recyclerShopping)*/
+                touchHelper.attachToRecyclerView(recyclerShopping)
             }
         }
         dbThread.start()
