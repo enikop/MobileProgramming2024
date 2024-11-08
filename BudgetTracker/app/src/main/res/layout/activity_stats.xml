@@ -45,6 +45,12 @@
         android:layout_margin="16dp"
         android:scrollbars="horizontal"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <TextView
+        android:id="@+id/tvRates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:text="Rates"/>
     <Button
         android:id="@+id/btnMain"
         android:layout_width="wrap_content"

@@ -8,6 +8,9 @@ interface TransactionDAO {
     @Query("SELECT * FROM transactions")
     fun findAllItems(): List<Transaction>
 
+    @Query("SELECT * FROM transactions WHERE date LIKE :yearMonth || '%'")
+    fun findTransactionsForMonth(yearMonth: String): List<Transaction>
+
     //Egy elem beszúrása
     @Insert
     fun insertItem(item: Transaction): Long

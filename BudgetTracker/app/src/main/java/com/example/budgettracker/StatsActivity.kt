@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.budgettracker.adapter.BudgetTrackerAdapter
 import com.example.budgettracker.database.AppDatabase
 import com.example.budgettracker.dialog.TransactionDialog
+import com.example.budgettracker.model.ExchangeResult
 import com.example.budgettracker.model.Transaction
+import com.example.budgettracker.network.ExchangeService
+import com.example.budgettracker.network.RatesCallback
 import com.example.budgettracker.touch.TransactionTouchHelperCallback
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.Description
@@ -18,13 +21,16 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_stats.*
+import kotlinx.android.synthetic.main.activity_stats.toolbar
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.*
 
-class StatsActivity: AppCompatActivity() {
+class StatsActivity: AppCompatActivity(), RatesCallback {
     private lateinit var transactions: List<Transaction>
+    private var exchangeService = ExchangeService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,7 @@ class StatsActivity: AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        //exchangeService.getRates(this)
 
         initTransactions()
         setupChart()
@@ -44,7 +51,10 @@ class StatsActivity: AppCompatActivity() {
 
     private fun initTransactions() {
         val dbThread = Thread {
-            transactions = AppDatabase.getInstance(this).transactionDao().findAllItems()
+            transactions = AppDatabase.getInstance(this).transactionDao().findTransactionsForMonth("2024-11")
+            runOnUiThread{
+                tvRates.text = transactions.size.toString();
+            }
         }
         dbThread.start()
     }
@@ -98,5 +108,13 @@ class StatsActivity: AppCompatActivity() {
 
         // Refresh chart with new data
         barChart.invalidate()
+    }
+
+    override fun onRatesReceived(result: ExchangeResult) {
+        tvRates.text = result!!.rates!!.HUF.toString()
+    }
+
+    override fun onError(error: Throwable) {
+        tvRates.text = error.localizedMessage
     }
 }
