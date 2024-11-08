@@ -29,6 +29,7 @@ class TransactionTouchHelperCallback(private val touchHelperAdapter: Transaction
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        touchHelperAdapter.onItemDismissed(viewHolder.adapterPosition)
+        /*touchHelperAdapter.onItemDismissed(viewHolder.adapterPosition)*/
+
     }
 }
