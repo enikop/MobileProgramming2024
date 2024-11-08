@@ -1,5 +1,6 @@
 package com.example.budgettracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity(), TransactionDialog.TransactionHandler {
         //A ShoppingTimeDialog-ot hívja meg (jeleníti meg)
         fab.setOnClickListener { view ->
             TransactionDialog().show(supportFragmentManager, "TAG_ITEM")
+        }
+        btnStats.setOnClickListener {
+            // Create an Intent to start StatsActivity
+            val intent = Intent(this, StatsActivity::class.java)
+            startActivity(intent)
         }
 
         initRecyclerView()
