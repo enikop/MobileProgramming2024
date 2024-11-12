@@ -9,10 +9,12 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budgettracker.MainActivity
 import com.example.budgettracker.R
 import com.example.budgettracker.database.AppDatabase
+import com.example.budgettracker.fragments.HomeFragment
 import com.example.budgettracker.helpers.DateConverter
 import com.example.budgettracker.model.Transaction
 import com.example.budgettracker.touch.TransactionTouchHelperAdapter
@@ -24,10 +26,13 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
     private val items = mutableListOf<Transaction>()
     private val dateConverter = DateConverter()
     private val context: Context
+    private val fragment: HomeFragment
 
-    constructor(context: Context, items: List<Transaction>) : super() {
+    constructor(context: Context, items: List<Transaction>, fragment: HomeFragment,) : super() {
         this.context = context
+        this.fragment = fragment
         this.items.addAll(items)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,7 +69,7 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
         }
         /*Edit gomb eseménykezelője (a főoldalon), megnyitja az edit dialógust, átadja az adott ShoppingItem-et neki*/
         holder.btnEdit.setOnClickListener {
-            (holder.itemView.context as MainActivity).showEditItemDialog(
+            fragment.showEditItemDialog(
                 items[holder.adapterPosition])
         }
         /*Checkbox eseménykezelője, állítja a checkbox értékét, azaz a ShoppingItem-nek, az isChecked adattagját.

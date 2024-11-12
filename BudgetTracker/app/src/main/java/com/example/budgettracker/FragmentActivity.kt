@@ -2,13 +2,11 @@ package com.example.budgettracker
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.budgettracker.dialog.TransactionDialog
 import com.example.budgettracker.fragments.HomeFragment
 import com.example.budgettracker.fragments.StatsFragment
-import com.example.budgettracker.model.Transaction
 import kotlinx.android.synthetic.main.activity_fragment.*
 
-class MainActivity : AppCompatActivity() {
+class FragmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment)
@@ -37,9 +35,5 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
-    companion object {
-        val KEY_FIRST = "KEY_FIRST"
-        val KEY_ITEM_TO_EDIT = "KEY_ITEM_TO_EDIT"
     }
 }

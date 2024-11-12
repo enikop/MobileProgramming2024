@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.budgettracker.MainActivity
 import com.example.budgettracker.R
+import com.example.budgettracker.fragments.HomeFragment
 import com.example.budgettracker.helpers.DateConverter
 import com.example.budgettracker.model.Currency
 import com.example.budgettracker.model.Transaction
@@ -17,9 +18,9 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class TransactionDialog : DialogFragment() {
+class TransactionDialog : DialogFragment {
 
-    private lateinit var transactionHandler: TransactionHandler
+    private var transactionHandler: TransactionHandler
     //Shopping Item elemek text-ben, ide szükséges a bővítés a Shopping Item új adattagja esetén
     private lateinit var etLabel: EditText
     private lateinit var etAmount: EditText
@@ -31,6 +32,10 @@ class TransactionDialog : DialogFragment() {
     private lateinit var spCurrency: Spinner
     private var dateConverter = DateConverter()
 
+    constructor(fragment: HomeFragment) {
+        this.transactionHandler = fragment
+    }
+
     interface TransactionHandler {
         fun transactionCreated(item: Transaction)
 
@@ -39,12 +44,6 @@ class TransactionDialog : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if (context is TransactionHandler) {
-            transactionHandler = context
-        } else {
-            throw RuntimeException("The Activity does not implement the TransactionHandler interface")
-        }
     }
     /*Új Shopping Item felvitelekor ez hívódik meg. A felirat a New Item lesz*/
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

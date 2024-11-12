@@ -7,6 +7,7 @@
     <color name="secondaryColourVariant">#FF02968A</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#FFEFEFEF</color>
     <color name="incomingColour">#FF94DEA5</color>
     <color name="outgoingColour">#FFFFFFCC</color>
     <color name="warnColour">#FFB85C5C</color>
