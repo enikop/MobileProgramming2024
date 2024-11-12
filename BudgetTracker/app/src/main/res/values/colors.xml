@@ -11,4 +11,7 @@
     <color name="outgoingColour">#FFFFFFCC</color>
     <color name="warnColour">#FFB85C5C</color>
 
+    <color name="spendingBarColour">#FFB85C5C</color>
+    <color name="incomeBarColour">#FF5EB684</color>
+
 </resources>

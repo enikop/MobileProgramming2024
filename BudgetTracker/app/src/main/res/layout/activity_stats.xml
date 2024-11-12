@@ -32,25 +32,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="Statistics"
+                app:title="Monthly summary"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="16dp"
-        android:scrollbars="horizontal"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    <TextView
-        android:id="@+id/tvRates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:text="Rates"/>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="150dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/gradient_background"
+            android:padding="16dp"
+            android:paddingBottom="0dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_weight="0.6"
+                android:textSize="20sp"
+                android:layout_marginRight="20dp"
+                android:text="Currency"/>
+            <Spinner
+                android:id="@+id/spDiagramCurrency"
+                android:layout_weight="0.4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
     <Button
         android:id="@+id/btnMain"
         android:layout_width="wrap_content"
