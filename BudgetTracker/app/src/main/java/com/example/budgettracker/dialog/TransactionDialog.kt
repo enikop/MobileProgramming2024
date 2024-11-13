@@ -92,8 +92,10 @@ class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
     }
 
     private fun showMaterialDatePicker(onDateSelected: (LocalDate) -> Unit) {
+        val selectedDate = dateConverter.fromString(etDate.text.toString())?.atStartOfDay(ZoneId.systemDefault())?.toInstant()?.toEpochMilli() ?: MaterialDatePicker.todayInUtcMilliseconds()
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select date")
+            .setSelection(selectedDate)
             .build()
 
         datePicker.addOnPositiveButtonClickListener { selection ->

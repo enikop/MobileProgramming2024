@@ -72,7 +72,7 @@ class StatsFragment : Fragment(), RatesCallback {
         spDiagramCurrency.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (result == null) exchangeService.getRates(this@StatsFragment)
+                if (result == null) //exchangeService.getRates(this@StatsFragment)
                 else {
                     val selectedCurrencyName = parent.selectedItem as String
                     selectedCurrency = Currency.valueOf(selectedCurrencyName)

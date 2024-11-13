@@ -32,6 +32,7 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
         this.context = context
         this.fragment = fragment
         this.items.addAll(items)
+        this.items.sortByDescending { it.date }
 
     }
 
@@ -83,8 +84,8 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
     }
 
     fun addItem(item: Transaction) {
-        items.add(item)
-        notifyItemInserted(items.lastIndex)
+        items.add(0, item)
+        notifyItemInserted(0)
     }
 
     fun deleteItem(position: Int) {
