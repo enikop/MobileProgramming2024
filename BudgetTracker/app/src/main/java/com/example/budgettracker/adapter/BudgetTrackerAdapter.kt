@@ -77,7 +77,7 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
         holder.cbComplete.setOnClickListener {
             items[position].isCompleted = holder.cbComplete.isChecked
             val dbThread = Thread {
-                AppDatabase.getInstance(context).transactionDao().updateItem(items[position])
+                AppDatabase.getInstance(context).transactionDao().updateItem(items[holder.adapterPosition])
             }
             dbThread.start()
         }

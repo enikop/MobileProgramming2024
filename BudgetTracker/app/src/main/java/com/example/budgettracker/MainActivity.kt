@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.budgettracker.fragments.HomeFragment
 import com.example.budgettracker.fragments.StatsFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        readApiKey()
 
         // Set up the initial fragment (HomeFragment)
         if (savedInstanceState == null) {
@@ -36,7 +40,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private fun readApiKey() {
+        try {
+            val inputStream = resources.openRawResource(R.raw.key)
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val output = bufferedReader.use { it.readText().trim() }
+            API_KEY = output
+        } catch (e:Exception) {
+            API_KEY = "N/A"
+        }
+    }
     companion object {
         const val KEY_ITEM_TO_EDIT = "KEY_ITEM_TO_EDIT"
+        var API_KEY = ""
     }
 }

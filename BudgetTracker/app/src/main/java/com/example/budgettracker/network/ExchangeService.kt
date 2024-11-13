@@ -1,5 +1,6 @@
 package com.example.budgettracker.network
 
+import com.example.budgettracker.MainActivity
 import com.example.budgettracker.model.ExchangeResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +20,7 @@ class ExchangeService {
     }
 
     fun getRates(callback: RatesCallback) {
-        val call = api.getRates(ApiKey.key)
+        val call = api.getRates(MainActivity.API_KEY)
         call.enqueue(object : Callback<ExchangeResult> {
             override fun onResponse(call: Call<ExchangeResult>, response: Response<ExchangeResult>) {
                 if (response.body() != null) {
