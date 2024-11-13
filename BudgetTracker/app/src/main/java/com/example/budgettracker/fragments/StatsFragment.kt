@@ -2,7 +2,6 @@ package com.example.budgettracker.fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +55,6 @@ class StatsFragment : Fragment(), RatesCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("StatsFragment", "StatsFragment is created")
         super.onViewCreated(view, savedInstanceState)
         barChart = view.barChart
         spDiagramCurrency = view.spDiagramCurrency
@@ -99,7 +97,6 @@ class StatsFragment : Fragment(), RatesCallback {
             val stats = mutableListOf<Pair<Float, Float>>()
             for (i in 0 until monthsShown) {
                 val transactions = AppDatabase.getInstance(requireContext()).transactionDao().findTransactionsForMonth(months[i])
-                Log.d("StatsFragment", transactions.size.toString())
                 stats.add(calculateMonthlyStat(transactions, selectedCurrency))
             }
 

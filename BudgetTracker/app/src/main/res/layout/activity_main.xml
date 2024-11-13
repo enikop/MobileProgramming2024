@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="Budget Tracker"
+                app:title="@string/app_name"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         </FrameLayout>
@@ -45,13 +45,11 @@
         android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_nav_menu"/>
-
+        app:menu="@menu/menu"/>
 
 </LinearLayout>

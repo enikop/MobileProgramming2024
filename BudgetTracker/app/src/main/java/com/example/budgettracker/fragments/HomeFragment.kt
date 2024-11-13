@@ -3,7 +3,6 @@ package com.example.budgettracker.fragments
 import android.app.Activity
 import android.os.Bundle
 import androidx.preference.PreferenceManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +36,6 @@ class HomeFragment : Fragment(), TransactionDialog.TransactionHandler {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("HomeFragment", "HomeFragment is created")
         view.fab.setOnClickListener {
             TransactionDialog(this).show(parentFragmentManager, "TAG_ITEM")
         }
@@ -47,7 +45,7 @@ class HomeFragment : Fragment(), TransactionDialog.TransactionHandler {
         if (isFirstRun()) {
             MaterialTapTargetPrompt.Builder(activity)
                 .setTarget(view.fab)
-                .setPrimaryText("New Transaction")
+                .setPrimaryText("New transaction")
                 .setSecondaryText("Tap here to record a new transaction.")
                 .show()
         }

@@ -100,8 +100,8 @@ class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
             // Convert the selected timestamp to LocalDate
-            val selectedDate = Instant.ofEpochMilli(selection).atZone(ZoneId.systemDefault()).toLocalDate()
-            onDateSelected(selectedDate)
+            val newSelectedDate = Instant.ofEpochMilli(selection).atZone(ZoneId.systemDefault()).toLocalDate()
+            onDateSelected(newSelectedDate)
         }
 
         datePicker.show(requireActivity().supportFragmentManager, "MATERIAL_DATE_PICKER")

@@ -17,9 +17,4 @@ data class Transaction(
     @ColumnInfo(name = "note") var note: String,
     @ColumnInfo(name = "date") var date: LocalDate = LocalDate.now(),
     @ColumnInfo(name = "currency") var currency: Currency = Currency.EUR
-    ) : Serializable {
-
-    val dateFormatted : String
-        get() = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
-}
+    ) : Serializable
