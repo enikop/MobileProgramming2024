@@ -1,6 +1,5 @@
 package com.example.budgettracker.fragments
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log

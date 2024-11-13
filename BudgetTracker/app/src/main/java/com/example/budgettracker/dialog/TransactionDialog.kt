@@ -1,7 +1,6 @@
 package com.example.budgettracker.dialog
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -18,10 +17,9 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class TransactionDialog : DialogFragment {
+class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
 
-    private var transactionHandler: TransactionHandler
-    //Shopping Item elemek text-ben, ide szükséges a bővítés a Shopping Item új adattagja esetén
+    private var transactionHandler: TransactionHandler = fragment
     private lateinit var etLabel: EditText
     private lateinit var etAmount: EditText
     private lateinit var etNote: EditText
@@ -32,20 +30,12 @@ class TransactionDialog : DialogFragment {
     private lateinit var spCurrency: Spinner
     private var dateConverter = DateConverter()
 
-    constructor(fragment: HomeFragment) {
-        this.transactionHandler = fragment
-    }
-
     interface TransactionHandler {
         fun transactionCreated(item: Transaction)
 
         fun transactionUpdated(item: Transaction)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-    /*Új Shopping Item felvitelekor ez hívódik meg. A felirat a New Item lesz*/
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
 
@@ -54,20 +44,16 @@ class TransactionDialog : DialogFragment {
         initDialogContent(builder)
 
 
-        builder.setPositiveButton("OK") { dialog, which ->
+        builder.setPositiveButton("OK") { _, _ ->
             // keep it empty
         }
         return builder.create()
     }
 
     private fun initDialogContent(builder: AlertDialog.Builder) {
-        /*etItem = EditText(activity)
-        builder.setView(etItem)*/
 
-        //dialog_create_item.xml-el dolgozunk
         val rootView = requireActivity().layoutInflater.inflate(R.layout.dialog_create, null)
-        //Shopping Item tagok az xml-ből (EditText elemek)
-        //Itt is szükséges a bővítés új Shopping Item adattag esetén
+
         etLabel = rootView.etLabel
         etAmount = rootView.etAmount
         rgIncoming = rootView.rgIncoming
@@ -87,14 +73,13 @@ class TransactionDialog : DialogFragment {
             }
         }
         builder.setView(rootView)
-        //Megnézzük, hogy kapott-e argumentumot (a fő ablakból), ha igen, akkor az adattagokat beállítjuk erre
-        // tehát az Edittext-ek kapnak értéket, és az ablak címét beállítjuk
+
         val arguments = this.arguments
         if (arguments != null &&
             arguments.containsKey(MainActivity.KEY_ITEM_TO_EDIT)) {
             val item = arguments.getSerializable(
                 MainActivity.KEY_ITEM_TO_EDIT) as Transaction
-            //Itt is szükséges a bővítés új Shopping Item adattag esetén
+
             etLabel.setText(item.label)
             etAmount.setText(item.amount.toString())
             rgIncoming.check(if(item.isIncoming) rbIncoming.id else rbOutgoing.id)
@@ -126,12 +111,9 @@ class TransactionDialog : DialogFragment {
 
         val dialog = dialog as AlertDialog
         val positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE)
-        //OK gomb a dialógus ablakon
-        //vizsgálja az eseménykezelője, hogy a dialógus ablak kapott-e paramétereket
-        //Ha kapott, akkor a handleItemEdit() hívódik meg (edit)
-        //Ha nem kapott, akor a handleItemCreate() hívódik meg (create)
+
         positiveButton.setOnClickListener {
-            var isValid = true;
+            var isValid = true
             if(etLabel.text.isEmpty() || etLabel.text.length > 20) {
                 etLabel.error = "The label can contain a maximum of 20 characters and cannot be empty."
                 isValid = false
@@ -155,9 +137,7 @@ class TransactionDialog : DialogFragment {
             }
         }
     }
-    //Új elem esetén hvódik meg, egy új ShoppingItem-et hoz létre
-    //az itemId azért null, mert a DB adja a kulcsot
-    //Itt is szükséges a bővítés új Shopping Item adattag esetén
+
     private fun handleItemCreate() {
         val selectedCurrencyName = spCurrency.selectedItem as String
         val selectedCurrency = Currency.valueOf(selectedCurrencyName)
@@ -168,13 +148,12 @@ class TransactionDialog : DialogFragment {
                 etAmount.text.toString().toDouble(),
                 rbIncoming.isChecked,
                 false,
-                etNote.text.toString(), dateConverter.fromString(etDate.getText()?.toString()) ?: LocalDate.now(),
+                etNote.text.toString(), dateConverter.fromString(etDate.text?.toString()) ?: LocalDate.now(),
                 selectedCurrency
             )
         )
     }
-    //Edit esetén hívódik meg, az edit-et csinálja, paraméterként átadja az adatokat
-    //Itt is szükséges a bővítés új Shopping Item adattag esetén
+
     private fun handleItemEdit() {
         val itemToEdit = arguments?.getSerializable(
             MainActivity.KEY_ITEM_TO_EDIT) as Transaction

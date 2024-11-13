@@ -2,16 +2,14 @@ package com.example.budgettracker
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.budgettracker.dialog.TransactionDialog
 import com.example.budgettracker.fragments.HomeFragment
 import com.example.budgettracker.fragments.StatsFragment
-import com.example.budgettracker.model.Transaction
-import kotlinx.android.synthetic.main.activity_fragment.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fragment)
+        setContentView(R.layout.activity_main)
 
         // Set up the initial fragment (HomeFragment)
         if (savedInstanceState == null) {
@@ -20,7 +18,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
@@ -39,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
     companion object {
-        val KEY_FIRST = "KEY_FIRST"
-        val KEY_ITEM_TO_EDIT = "KEY_ITEM_TO_EDIT"
+        const val KEY_ITEM_TO_EDIT = "KEY_ITEM_TO_EDIT"
     }
 }

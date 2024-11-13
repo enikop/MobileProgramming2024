@@ -1,9 +1,8 @@
 package com.example.budgettracker.fragments
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +26,6 @@ class HomeFragment : Fragment(), TransactionDialog.TransactionHandler {
 
     companion object {
         const val KEY_FIRST = "KEY_FIRST"
-        const val KEY_ITEM_TO_EDIT = "KEY_ITEM_TO_EDIT"
     }
 
     override fun onCreateView(
@@ -72,10 +70,10 @@ class HomeFragment : Fragment(), TransactionDialog.TransactionHandler {
 
             activity.runOnUiThread {
                 adapter = BudgetTrackerAdapter(requireContext(), items, this)
-                recyclerShopping.adapter = adapter
+                rvTransaction.adapter = adapter
                 val callback = TransactionTouchHelperCallback(adapter)
                 val touchHelper = ItemTouchHelper(callback)
-                touchHelper.attachToRecyclerView(view?.recyclerShopping)
+                touchHelper.attachToRecyclerView(view?.rvTransaction)
             }
         }
         dbThread.start()

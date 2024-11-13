@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Budget Tracker</string>
     <string name="large_text">This is a large text.</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="completed">Completed</string>
+    <string name="currency">Currency</string>
+    <string name="add_transaction">Add transaction</string>
+    <string name="label">Label</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="note">Note</string>
+    <string name="incoming">Incoming</string>
+    <string name="outgoing">Outgoing</string>
 </resources>

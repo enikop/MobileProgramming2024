@@ -48,7 +48,7 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val decimalFormat = DecimalFormat("#.##")
-        /*Itt kérjük le az egyes ShoppingItem elemek adattagjait, itt is szükséges az adattaggal a bővítés*/
+
         holder.tvLabel.text = items[position].label
         holder.tvAmount.text = decimalFormat.format(items[position].amount)
         holder.tvCurrency.text = items[position].currency.name
@@ -63,33 +63,30 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
         }
 
         holder.cardView.setCardBackgroundColor(backgroundColor)
-        /*Delete gomb eseménykezeője (a főoldalon)*/
+
         holder.btnDelete.setOnClickListener {
             deleteItem(holder.adapterPosition)
         }
-        /*Edit gomb eseménykezelője (a főoldalon), megnyitja az edit dialógust, átadja az adott ShoppingItem-et neki*/
+
         holder.btnEdit.setOnClickListener {
             fragment.showEditItemDialog(
                 items[holder.adapterPosition])
         }
-        /*Checkbox eseménykezelője, állítja a checkbox értékét, azaz a ShoppingItem-nek, az isChecked adattagját.
-        Az adatbázisban is frissíti
-         */
+
         holder.cbComplete.setOnClickListener {
             items[position].isCompleted = holder.cbComplete.isChecked
             val dbThread = Thread {
-                //Itt frissíti a DB-ben
                 AppDatabase.getInstance(context).transactionDao().updateItem(items[position])
             }
             dbThread.start()
         }
     }
-    /*Új elem hozzáadásakor hívódik meg*/
+
     fun addItem(item: Transaction) {
         items.add(item)
         notifyItemInserted(items.lastIndex)
     }
-    /*Elem törlésekor hívódik meg. Az adatbázisból törli az elemet (DAO-n keresztül)*/
+
     fun deleteItem(position: Int) {
         val dbThread = Thread {
             AppDatabase.getInstance(context).transactionDao().deleteItem(
@@ -101,7 +98,7 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
         }
         dbThread.start()
     }
-    /*Update-kor hívódik meg*/
+
     fun updateItem(item: Transaction) {
         val idx = items.indexOf(item)
         items[idx] = item
@@ -119,8 +116,6 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        /*a ShoppingItem elemek, ide kell a bővítés új taggal*/
-        /*Itt a gombokat, checkboxot is lekérjük*/
         val tvLabel: TextView = itemView.tvLabel
         val tvAmount: TextView = itemView.tvAmount
         val tvCurrency: TextView = itemView.tvCurrency

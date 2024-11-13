@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Egyes ShoppingItem-ek a főldalon.
-  Egy kép (ImageView), 2db TextView az adattagoknak (itt szükséges a bővítés, ha új adattagjai lesznek)
-  És egy CheckBox a bought adattagnak, 2 gomb (edit, delete)
-  -->
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -31,7 +28,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="5dp"
-            android:text="Edit"
+            android:text="@string/edit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNote"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -41,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/Button.Warn"
-            android:text="Delete"
+            android:text="@string/delete"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Completed"
+            android:text="@string/completed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:useMaterialThemeColors="true" />
