@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budgettracker.MainActivity
 import com.example.budgettracker.R
 import com.example.budgettracker.database.AppDatabase
+import com.example.budgettracker.dialog.TransactionHandler
 import com.example.budgettracker.fragments.HomeFragment
 import com.example.budgettracker.helpers.DateConverter
 import com.example.budgettracker.model.Transaction
@@ -26,11 +27,11 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
     private val items = mutableListOf<Transaction>()
     private val dateConverter = DateConverter()
     private val context: Context
-    private val fragment: HomeFragment
+    private val handler: TransactionHandler
 
-    constructor(context: Context, items: List<Transaction>, fragment: HomeFragment,) : super() {
+    constructor(context: Context, items: List<Transaction>, handler: TransactionHandler) : super() {
         this.context = context
-        this.fragment = fragment
+        this.handler = handler
         this.items.addAll(items)
         this.items.sortByDescending { it.date }
 
@@ -70,12 +71,12 @@ class BudgetTrackerAdapter : RecyclerView.Adapter<BudgetTrackerAdapter.ViewHolde
         }
 
         holder.btnEdit.setOnClickListener {
-            fragment.showEditItemDialog(
+            handler.showEditItemDialog(
                 items[holder.adapterPosition])
         }
 
         holder.cbComplete.setOnClickListener {
-            items[position].isCompleted = holder.cbComplete.isChecked
+            items[holder.adapterPosition].isCompleted = holder.cbComplete.isChecked
             val dbThread = Thread {
                 AppDatabase.getInstance(context).transactionDao().updateItem(items[holder.adapterPosition])
             }

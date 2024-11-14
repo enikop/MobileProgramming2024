@@ -12,14 +12,14 @@ import com.example.budgettracker.helpers.DateConverter
 import com.example.budgettracker.model.Currency
 import com.example.budgettracker.model.Transaction
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.android.synthetic.main.dialog_create.view.*
+import kotlinx.android.synthetic.main.dialog_transaction_form.view.*
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
+class TransactionDialog(handler: TransactionHandler) : DialogFragment() {
 
-    private var transactionHandler: TransactionHandler = fragment
+    private var transactionHandler: TransactionHandler = handler
     private lateinit var etLabel: EditText
     private lateinit var etAmount: EditText
     private lateinit var etNote: EditText
@@ -29,12 +29,6 @@ class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
     private lateinit var etDate: EditText
     private lateinit var spCurrency: Spinner
     private var dateConverter = DateConverter()
-
-    interface TransactionHandler {
-        fun transactionCreated(item: Transaction)
-
-        fun transactionUpdated(item: Transaction)
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
@@ -52,7 +46,7 @@ class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
 
     private fun initDialogContent(builder: AlertDialog.Builder) {
 
-        val rootView = requireActivity().layoutInflater.inflate(R.layout.dialog_create, null)
+        val rootView = requireActivity().layoutInflater.inflate(R.layout.dialog_transaction_form, null)
 
         etLabel = rootView.etLabel
         etAmount = rootView.etAmount
@@ -61,12 +55,14 @@ class TransactionDialog(fragment: HomeFragment) : DialogFragment() {
         rbOutgoing = rootView.rbOutgoing
         etNote = rootView.etNote
         etDate = rootView.etDate
-        etDate.setText(dateConverter.dateToString(LocalDate.now()))
         spCurrency = rootView.spCurrency
+
         val currencies = Currency.values().map { it.name }
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencies)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spCurrency.adapter = adapter
+
+        etDate.setText(dateConverter.dateToString(LocalDate.now()))
         etDate.setOnClickListener {
             showMaterialDatePicker { selectedDate ->
                 etDate.setText(dateConverter.dateToString(selectedDate))

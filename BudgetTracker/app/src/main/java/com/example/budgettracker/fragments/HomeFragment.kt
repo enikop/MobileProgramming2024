@@ -13,13 +13,14 @@ import com.example.budgettracker.R
 import com.example.budgettracker.adapter.BudgetTrackerAdapter
 import com.example.budgettracker.database.AppDatabase
 import com.example.budgettracker.dialog.TransactionDialog
+import com.example.budgettracker.dialog.TransactionHandler
 import com.example.budgettracker.model.Transaction
 import com.example.budgettracker.touch.TransactionTouchHelperCallback
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 
-class HomeFragment : Fragment(), TransactionDialog.TransactionHandler {
+class HomeFragment : Fragment(), TransactionHandler {
     private lateinit var adapter: BudgetTrackerAdapter
     private lateinit var activity: Activity
 
@@ -98,7 +99,7 @@ class HomeFragment : Fragment(), TransactionDialog.TransactionHandler {
         }
         dbThread.start()
     }
-    fun showEditItemDialog(itemToEdit: Transaction) {
+    override fun showEditItemDialog(itemToEdit: Transaction) {
         val editDialog = TransactionDialog(this)
 
         val bundle = Bundle()
